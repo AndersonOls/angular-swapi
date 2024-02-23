@@ -1,0 +1,52 @@
+<app-header titulo="Naves"></app-header>
+
+<div class="search-container ml-2 mt-2 flex">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()" >
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Buscar por nave</mat-label>
+      <input matInput formControlName="search">
+      <button  mat-icon-button matSuffix type="submit"><mat-icon aria-hidden="false" aria-label="search icon" fontIcon="search" class="text-slate-300"></mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-button type="button" (click)="clearSearch()">Limpar Busca</button>
+  </form>
+</div>
+
+@if (isLoading) {
+    <div class="spinner-container flex justify-center items-baseline h-52">
+        <mat-spinner color="accent"></mat-spinner>
+      </div>
+}
+
+  
+<div class="h-full flex flex-col justify-center items-start w-4/5 m-auto">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+   
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef> Model </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.model}} </mat-cell>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="manufacturer">
+      <mat-header-cell *matHeaderCellDef> Manufacturer </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.manufacturer}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="class">
+        <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.starship_class}} </mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="totalDeNaves" [pageSize]="10" [pageSizeOptions]="[10,20]" (page)="mudarPagina($event)" class="w-full shadow-xl"></mat-paginator>
+
+</div>

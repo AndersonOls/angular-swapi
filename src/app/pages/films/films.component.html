@@ -1,0 +1,58 @@
+<app-header titulo="Filmes"></app-header>
+
+<div class="search-container ml-2 mt-2 flex">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()" >
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Buscar por título</mat-label>
+      <input matInput formControlName="search">
+      <button  mat-icon-button matSuffix type="submit"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="search" class="text-slate-300"></mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-button type="button" (click)="clearSearch()">Limpar Busca</button>
+  </form>
+</div>
+
+@if (isLoading) {
+  <div class="spinner-container flex justify-center items-baseline h-52">
+      <mat-spinner color="accent"></mat-spinner>
+    </div>
+}
+
+  
+<!-- src/app/components/films-table/films-table.component.html -->
+<div class="h-full flex justify-center items-start w-4/5 m-auto">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+    </ng-container>
+  
+    <!-- Episode ID Column -->
+    <ng-container matColumnDef="episode_id">
+      <mat-header-cell *matHeaderCellDef> Episode </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.episode_id}} </mat-cell>
+    </ng-container>
+  
+    <!-- Director Column -->
+    <ng-container matColumnDef="director">
+      <mat-header-cell *matHeaderCellDef> Director </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.director}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="producer">
+        <mat-header-cell *matHeaderCellDef> Producer </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.producer}} </mat-cell>
+      </ng-container>
+  
+    <!-- Release Date Column -->
+    <ng-container matColumnDef="release_date">
+      <mat-header-cell *matHeaderCellDef> Release Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.release_date}} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
